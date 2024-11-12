@@ -17,11 +17,13 @@ function ImageUpload({ setResults, setLoading, setProcessedImage }) {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8000/predict', formData, {
+      console.log('Sending request to backend...');
+      const response = await axios.post('http://ec2-3-110-153-219.ap-south-1.compute.amazonaws.com:8000/predict', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
+      console.log('Response received:', response);
       setResults(response.data.detected_objects);
       setProcessedImage(response.data.image);
     } catch (error) {
